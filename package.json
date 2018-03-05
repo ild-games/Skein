@@ -3,13 +3,14 @@
   "license": "MIT",
   "scripts": {
     "start": "npm run build && concurrently \"npm run watch\" \"npm run spool\"",
-    "test": "tsc && npm run mocha",
+    "test": "tsc && npm run jasmine",
     "build": "gulp && tsc",
     "watch": "concurrently \"npm run gulp:w\" \"npm run tsc:w\"",
     "gulp": "gulp",
     "gulp:w": "gulp watch",
     "tsc": "tsc",
     "tsc:w": "tsc -w",
+    "jasmine": "jasmine build/spool-tests/**/*.spec.js",
     "spool": "electron build/electron/background-main.js"
   },
   "dependencies": {
@@ -34,8 +35,10 @@
     "zone.js": "0.8.20"
   },
   "devDependencies": {
+    "@types/jasmine": "2.8.6",
     "concurrently": "3.5.1",
     "electron": "1.8.2",
+    "jasmine": "3.1.0",
     "typescript": "2.7.2"
   }
 }

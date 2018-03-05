@@ -29,7 +29,7 @@ gulp.task('watch', function () {
 
 moveTask('electron', 'src/electron/**', 'build/electron');
 moveTask('index', 'src/index.html', 'build');
-moveTask('resources', 'resources/**', 'resources');
+moveTask('resources', 'resources/**', 'build/resources');
 
 gulp.task(
     'spool',
