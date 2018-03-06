@@ -1,5 +1,6 @@
 {
   "name": "@ild-games/Spool",
+  "version": "0.1.0",
   "license": "MIT",
   "scripts": {
     "start": "npm run build && concurrently \"npm run watch\" \"npm run spool\"",
