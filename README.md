@@ -1,5 +1,6 @@
 # Spool
 ![](https://api.travis-ci.org/ild-games/Spool.svg?branch=develop)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/7a401982f3e3d432bfd1/test_coverage)](https://codeclimate.com/github/ild-games/Spool/test_coverage)
 
 ## About
 
