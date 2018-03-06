@@ -1,13 +1,21 @@
 language: node_js
 node_js:
   - "node"
+env:
+  global:
+    - secure: "bL1ValJlfGe/QkqCZopoyLEf20GrJ6hwhkrdCxsIdsBs9GJZgB1S/hBw+HNsIQyOY3IyEaE5TtMy2WxbwUQTT5xBxBC8hdqy45O//kWJsaR/SyFOM58j07iRD8xzUl0UXYkpW0MVcBX7Yl0Mu6T/pR3mQKwCffUM7B6yiPVcpnvi3j6hkp7YfEtXJoeHgy7eAJzhgTM8s9HBrTDIzL3L3TRQUHtWWr2KWXIEAnaGFHsZNqHh8+k7byc/DuyGQTxBAdOeO37h45eyGCUBIlgQJE99V1p6bRH4ssnO0816lX4is5dJgbj8qepGaDHuXFRiP7wHmuBvpmTUwQ+/t9hGGypDU9gMQM4YpQYHG7/UU51hlM7aXlzduOIUun2dRmhyAQXIZjuz/UmIHIiRKjGnhpnpvic+/t1L92BNqwVNSExFDg8KrBzUc5MOjKJz6SN3GJ5CIhZWuYGuvDHzbetCDOKHWU3SsSluffpFSOiBRdAXjVr2ayky6TvT5mBZmHmW1iW2xH6PsKNuzTQO515IyQnE7B54ciWWY5wgC9qIWZ1qepxF0jwDze9sIh8VehkfB6gt07qAjqiYLTFk4v/jjr/iFalUGlcNhcE08NPRfhGXUWiMPPFp8lc1tUApfdgXHRv5S2bIjIrhE4wR8UpxYSz4sgiva4dmebMQR5MOwVs="
 addons:
   apt:
     packages:
       - xvfb
+  code_climate:
 script:
   - npm run build
   - npm run test
+  - npm run coverage
 before_install:
   - export DISPLAY=':99.0'
   - Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
+  - npm install -g codeclimate-test-reporter
+after_script:
+  - codeclimate-test-reporter < ./coverage/lcov.info
