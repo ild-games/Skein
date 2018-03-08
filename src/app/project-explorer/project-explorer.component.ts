@@ -3,7 +3,7 @@ import { Component } from "@angular/core";
 @Component({
     selector: 'spl-project-explorer',
     styleUrls: [
-        './spool/project-explorer/project-explorer.component.css'
+        './project-explorer.component.scss'
     ],
     template: `
         <div class="container">
@@ -12,5 +12,4 @@ import { Component } from "@angular/core";
     `
 })
 export class ProjectExplorerComponent {
-
 }

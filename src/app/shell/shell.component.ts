@@ -3,7 +3,7 @@ import { Component } from "@angular/core";
 @Component({
     selector: 'spl-shell',
     styleUrls: [
-        './spool/shell/shell.component.css'
+        './shell.component.scss'
     ],
     template: `
         <div class="shell">
@@ -18,5 +18,4 @@ import { Component } from "@angular/core";
     `
 })
 export class ShellComponent {
-
 }
