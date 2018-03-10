@@ -1,9 +1,9 @@
-import { Component } from "@angular/core";
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'spl-workspace',
     styleUrls: [
-        './spool/workspace/workspace.component.css'
+        './workspace.component.scss'
     ],
     template: `
         <div class="container">
@@ -12,5 +12,4 @@ import { Component } from "@angular/core";
     `
 })
 export class WorkspaceComponent {
-
 }
