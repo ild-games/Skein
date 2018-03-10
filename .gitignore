@@ -1,21 +1,47 @@
-# Ignore build files and dependencies
-build/
-node_modules/
-.sass-cache/
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# compiled output
+/dist
+/dist-server
+/tmp
+/out-tsc
+
+# dependencies
+/node_modules
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# misc
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
 npm-debug.log
+yarn-error.log
+testem.log
+/typings
 
-# Ignore certain IntelliJ files
-.idea/workspace.xml
-.idea/tasks.xml
-.idea/dictionaries
-.idea/libraries
-.settings/launch.json
+# e2e
+/e2e/*.js
+/e2e/*.map
 
-# Ignore OSX files
+# System Files
 .DS_Store
-
-# Ignore TODO file
-TODO
+Thumbs.db
 
 # Ignore code coverage generated reports
 coverage/
