@@ -45,3 +45,6 @@ Thumbs.db
 
 # Ignore code coverage generated reports
 coverage/
+
+# Ignore package-lock.json as Yarn is the preferred package manager for this project
+package-lock.json
