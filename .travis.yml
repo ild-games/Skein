@@ -11,8 +11,10 @@ addons:
   code_climate:
 script:
   - npm run build
-  - npm run test
-  - npm run coverage
+  - npm run test:travis
+  - npm run coverage:travis
+  - npm run e2e:travis
+  - npm run lint
 before_install:
   - export DISPLAY=':99.0'
   - Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &

@@ -1,7 +1,8 @@
-import { NgModule } from "@angular/core";
-import { ShellComponent } from "./shell.component";
-import { ProjectExplorerModule } from "../project-explorer/project-explorer.module";
-import { WorkspaceModule } from "../workspace/workspace.module";
+import { NgModule } from '@angular/core';
+
+import { ShellComponent } from './shell.component';
+import { ProjectExplorerModule } from '../project-explorer/project-explorer.module';
+import { WorkspaceModule } from '../workspace/workspace.module';
 
 @NgModule({
     imports: [

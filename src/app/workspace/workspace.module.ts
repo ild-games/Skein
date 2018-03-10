@@ -1,5 +1,5 @@
-import { NgModule } from "@angular/core";
-import { WorkspaceComponent } from "./workspace.component";
+import { NgModule } from '@angular/core';
+import { WorkspaceComponent } from './workspace.component';
 
 @NgModule({
     declarations: [

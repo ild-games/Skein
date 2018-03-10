@@ -1,6 +1,6 @@
 import { TestBed, async } from '@angular/core/testing';
 
-import { ShellComponent } from './shell.component'
+import { ShellComponent } from './shell.component';
 import { ProjectExplorerComponent } from '../project-explorer/project-explorer.component';
 import { WorkspaceComponent } from '../workspace/workspace.component';
 

@@ -1,5 +1,5 @@
-import { NgModule } from "@angular/core";
-import { ProjectExplorerComponent } from "./project-explorer.component";
+import { NgModule } from '@angular/core';
+import { ProjectExplorerComponent } from './project-explorer.component';
 
 @NgModule({
     declarations: [

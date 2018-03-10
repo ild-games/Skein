@@ -4,8 +4,9 @@
 $shell-padding: 16px;
 
 .shell {
-    @include fill;
-
+    width: 100%;
+    height: 100vh;
+    box-sizing: border-box;
     padding: $shell-padding;
     background-color: $app-background-color;
     display: flex;
