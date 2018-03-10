@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
     ],
     template: `
         <div class="container">
-            Workspace
+            WorkspaceTest2
         </div>
     `
 })

@@ -1,7 +1,7 @@
 {
     "extends": "../../tsconfig.json",
     "compilerOptions": {
-        "outDir": "../../dist/electron",
+        "outDir": "../../dist/app",
         "baseUrl": "./",
         "module": "commonjs",
         "types": []
