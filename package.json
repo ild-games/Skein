@@ -8,12 +8,12 @@
         "build": "ng build",
         "build:p": "ng build --prod",
         "test": "ng test --watch true",
-        "test:travis": "ng test --watch false --config=karma.travis.conf.js",
+        "test:travis": "ng test --watch false --config=./config/karma.travis.conf.js",
         "coverage": "ng test --code-coverage --watch true",
-        "coverage:travis": "ng test --watch false --code-coverage --config=karma.travis.conf.js",
+        "coverage:travis": "ng test --watch false --code-coverage --config=./config/karma.travis.conf.js",
         "lint": "ng lint",
         "e2e": "ng e2e",
-        "e2e:travis": "ng e2e --watch false --config=protractor.travis.conf.js"
+        "e2e:travis": "ng e2e --watch false --config=./config/protractor.travis.conf.js"
     },
     "private": true,
     "dependencies": {
