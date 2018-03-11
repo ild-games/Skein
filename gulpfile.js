@@ -1,6 +1,6 @@
 var gulp = require('gulp');
 
-moveTask('electron-html', 'src/electron/**/*.html', 'dist/app');
+moveTask('electron-html', 'src/electron/**/*.html', 'dist/electron');
 
 gulp.task('spool', [
     'electron-html',

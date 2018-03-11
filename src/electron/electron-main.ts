@@ -1,7 +1,9 @@
 'use strict';
 
 import { BrowserWindow, app } from 'electron';
-import { initSpoolBackendServer } from './server';
+
+import { initSpoolBackendServer } from '../server/spool-server';
+import { ElectronSpoolServer } from './electron-server';
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -21,7 +23,7 @@ function createWindow() {
     });
 
     // start the server to communicate with spool
-    const spoolServer = initSpoolBackendServer(mainWindow);
+    const spoolServer = initSpoolBackendServer(new ElectronSpoolServer(mainWindow));
     spoolServer.startServer();
 
     // Open the DevTools.

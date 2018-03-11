@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 import 'rxjs/add/operator/map';
 
+import { NewProjectResponse } from '../../server/server-response-types';
+
 
 @Component({
     selector: 'spl-project-selection',
@@ -14,18 +16,24 @@ import 'rxjs/add/operator/map';
             <button (click)="clickButton()">
                 New Project
             </button>
-            Project Selection2
+            {{currentProject}}
         </div>
     `
 })
 export class ProjectSelectionComponent {
+    public currentProject = '';
+
     constructor(private _http: HttpClient) {
     }
 
 
     public clickButton() {
-        this._http.get('http://localhost:4200/newProject', { responseType: 'text' }).map((response: string) => {
-            console.log(response);
+        this._http.get('http://localhost:4200/newProject').map((response: NewProjectResponse) => {
+            if (!response) {
+                return;
+            }
+
+            this.currentProject = response.newProjectKey;
         }).subscribe();
     }
 }
