@@ -17,17 +17,15 @@ import { ProjectService } from '../project/project.service';
             <button (click)="onNewClicked()">
                 New Project
             </button>
-            {{currentProject}}
         </div>
     `
 })
 export class ProjectSelectionComponent {
-    public currentProject = '';
 
     constructor(private _project: ProjectService) {
     }
 
     public async onNewClicked() {
-        this.currentProject = await this._project.newProject();
+        await this._project.newProject();
     }
 }

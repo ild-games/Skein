@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ProjectService } from '../project/project.service';
 
 @Component({
     selector: 'spl-shell',
@@ -7,23 +8,25 @@ import { Component } from '@angular/core';
     ],
     template: `
         <div class="container">
-            <div *ngIf="showSplash">
+            <div *ngIf="showProjectSelection">
                 <spl-project-selection></spl-project-selection>
             </div>
 
-            <div *ngIf="showProject">
+            <div *ngIf="showSpool">
                 <spl-spool></spl-spool>
             </div>
         </div>
     `
 })
 export class ShellComponent {
-
-    public get showSplash(): boolean {
-        return true;
+    constructor(private _project: ProjectService) {
     }
 
-    public get showProject(): boolean {
-        return false;
+    public get showProjectSelection(): boolean {
+        return !this._project.project.getValue();
+    }
+
+    public get showSpool(): boolean {
+        return !!this._project.project.getValue();
     }
 }

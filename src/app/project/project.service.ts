@@ -7,13 +7,17 @@ import { Project } from './project';
 
 @Injectable()
 export class ProjectService {
-    public project: BehaviorSubject<Project>;
+    public project = new BehaviorSubject<Project>(null);
 
     constructor(private _serverComm: ServerCommunicationService) {
     }
 
-    public async newProject(): Promise<string> {
+    public async newProject(): Promise<void> {
         const response = await this._serverComm.get<NewProjectResponse>('newProject');
-        return response.newProjectKey;
+        if (!response.newProjectKey) {
+            return;
+        }
+
+        this.project.next({ key: response.newProjectKey });
     }
 }
