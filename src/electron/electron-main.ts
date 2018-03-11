@@ -1,38 +1,33 @@
 'use strict';
 
 import { BrowserWindow, app } from 'electron';
-import { startSpoolServer, killSpoolServer } from './start-server';
+import { initSpoolBackendServer } from './server';
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow: BrowserWindow;
 
 function createWindow() {
-    let serverProcess = startSpoolServer();
-    serverProcess.stdout.on('data', (data) => {
-        console.log("Server Output: " + data);
-    });
-    serverProcess.stderr.on('data', (data) => {
-        console.log("Server Error: " + data);
-    });
-
     // Create the browser window.
     mainWindow = new BrowserWindow({
         width: 800,
-        title: "Spool",
+        title: 'Spool',
         height: 600,
-        icon: __dirname + "/../assets/images/icon.png",
+        icon: __dirname + '/../assets/images/icon.png',
         webPreferences: {
             nodeIntegration: false,
             preload: './preload.js'
         }
     });
 
+    // start the server to communicate with spool
+    const spoolServer = initSpoolBackendServer(mainWindow);
+    spoolServer.startServer();
 
     // Open the DevTools.
     mainWindow.webContents.openDevTools();
 
-    let loadSpoolURL = () => mainWindow.loadURL('http://localhost:4200');
+    const loadSpoolURL = () => mainWindow.loadURL('http://localhost:4200');
     loadSpoolURL();
     mainWindow.webContents.on('did-fail-load', () => {
         setTimeout(() => loadSpoolURL(), 250);
@@ -40,8 +35,7 @@ function createWindow() {
 
     // Emitted when the window is closed.
     mainWindow.on('closed', function () {
-        console.log("close kill server");
-        killSpoolServer(serverProcess);
+        spoolServer.killServer();
 
         // Dereference the window object, usually you would store windows
         // in an array if your app supports multi windows, this is the time
