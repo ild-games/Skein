@@ -31,7 +31,7 @@ describe('ServerCommunicationService', () => {
     });
 
     it('sets the project to null when newProject is invoked and an invalid result is returned from the server', () => {
-        service.newProject().then(() => { expect(project).toBe(null); });
+        service.newProject().then(() => { expect(project).toBeNull(); });
     });
 
     it('sets the project values to a new project when newProject is invoked and a valid result is returned from the server', () => {

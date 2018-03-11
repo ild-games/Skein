@@ -19,8 +19,8 @@ export class ProjectExplorerComponent implements OnDestroy {
     private _project: Project;
     private _projectSubscription: Subscription;
 
-    constructor(public projectService: ProjectService) {
-        this._projectSubscription = this.projectService.project.subscribe((newProject: Project) => {
+    constructor(private _projectService: ProjectService) {
+        this._projectSubscription = this._projectService.project.subscribe((newProject: Project) => {
             this._onProjectChanged(newProject);
         });
     }
