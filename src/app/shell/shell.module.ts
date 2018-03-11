@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 
 import { ShellComponent } from './shell.component';
-import { SpoolModule } from '../spool/spool.module';
+import { SkeinModule } from '../skein/skein.module';
 import { ProjectSelectionModule } from '../project-selection/project-selection.module';
 import { ControlsModule } from '../controls/controls.module';
 
 @NgModule({
     imports: [
-        SpoolModule,
+        SkeinModule,
         ProjectSelectionModule,
         ControlsModule
     ],

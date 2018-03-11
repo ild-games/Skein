@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'spl-spool',
+    selector: 'spl-skein',
     styleUrls: [
-        './spool.component.scss'
+        './skein.component.scss'
     ],
     template: `
         <div class="container">
@@ -17,5 +17,5 @@ import { Component } from '@angular/core';
         </div>
     `
 })
-export class SpoolComponent {
+export class SkeinComponent {
 }

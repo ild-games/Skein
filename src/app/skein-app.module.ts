@@ -7,7 +7,7 @@ import { ShellComponent } from './shell/shell.component';
 import { ShellModule } from './shell/shell.module';
 import { ProjectExplorerModule } from './project-explorer/project-explorer.module';
 import { WorkspaceModule } from './workspace/workspace.module';
-import { SpoolModule } from './spool/spool.module';
+import { SkeinModule } from './skein/skein.module';
 import { ProjectSelectionModule } from './project-selection/project-selection.module';
 import { ControlsModule } from './controls/controls.module';
 import { ServerCommuncationModule } from './server-communication/server-communication.module';
@@ -21,7 +21,7 @@ import { ProjectModule } from './project/project.module';
         ServerCommuncationModule,
         ProjectModule,
         ShellModule,
-        SpoolModule,
+        SkeinModule,
         ProjectSelectionModule,
         ProjectExplorerModule,
         WorkspaceModule
@@ -30,7 +30,7 @@ import { ProjectModule } from './project/project.module';
         ShellComponent
     ]
 })
-export class SpoolAppModule {
+export class SkeinAppModule {
     constructor(private _appRef: ApplicationRef) {
     }
 

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 
-import { SpoolComponent } from './spool.component';
+import { SkeinComponent } from './skein.component';
 import { ProjectExplorerModule } from '../project-explorer/project-explorer.module';
 import { WorkspaceModule } from '../workspace/workspace.module';
 
@@ -10,11 +10,11 @@ import { WorkspaceModule } from '../workspace/workspace.module';
         WorkspaceModule
     ],
     declarations: [
-        SpoolComponent
+        SkeinComponent
     ],
     exports: [
-        SpoolComponent
+        SkeinComponent
     ]
 })
-export class SpoolModule {
+export class SkeinModule {
 }

@@ -1,25 +1,34 @@
-# Spool
-![](https://api.travis-ci.org/ild-games/Spool.svg?branch=develop)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/7a401982f3e3d432bfd1/test_coverage)](https://codeclimate.com/github/ild-games/Spool/test_coverage)
+# Skein
+![](https://api.travis-ci.org/ild-games/Skein.svg?branch=develop)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/fb60bbf3019af519fa80/test_coverage)](https://codeclimate.com/github/ild-games/Skein/test_coverage)
 
 ## About
 
-Spool is an interactive editor for the Yarn Dialogue language.
+Skein is an interactive editor for the Yarn Dialogue language.
 
 More information about Yarn can be found at the [Yarn github page](https://github.com/InfiniteAmmoInc/Yarn)
 
 
 ## Setup Instructions
 
-### Installing Dependencies
+[Yarn](https://yarnpkg.com/en/) is the preferred node package maanger for Skein. We check in the yarn.lock file instead of the npm lock file. The following yarn commands can be replaced with the appropriate npm commands if desired.
 
-1. Install npm
-2. Install project dependencies `npm install`
+### Installing Dependencies
+1. Install yarn
+2. Install project dependencies `yarn`
 
 ### Running from Command Line
 
-`npm start`
+`yarn run start`
 
 ### Running Unit Tests
 
-`npm test`
+`yarn run test`
+
+### Running E2E Tests
+
+`yarn run e2e`
+
+### Running linter
+
+`yarn run lint`

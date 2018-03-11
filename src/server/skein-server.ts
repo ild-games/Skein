@@ -4,7 +4,7 @@ import { Server } from 'http';
 import { NewProjectResponse, OpenProjectResponse } from './server-response-types';
 import { OpenProjectRequest, parseOpenProjectRequest } from './server-requests-types';
 
-export interface ISpoolServer {
+export interface ISkeinServer {
     newProject(): NewProjectResponse;
     openProject(request: OpenProjectRequest): OpenProjectResponse;
 }
@@ -14,7 +14,7 @@ export interface ServerLifecycle {
     killServer(): void;
 }
 
-export function initSpoolBackendServer(server: ISpoolServer): ServerLifecycle {
+export function initSkeinBackendServer(server: ISkeinServer): ServerLifecycle {
     const app = express();
     let expressServerInstance: Server = null;
 
@@ -29,7 +29,7 @@ export function initSpoolBackendServer(server: ISpoolServer): ServerLifecycle {
 
     return {
         startServer: () => {
-            expressServerInstance = app.listen(4200, () => console.log('Spool server listening on port 4200!'));
+            expressServerInstance = app.listen(4200, () => console.log('Skein server listening on port 4200!'));
         },
 
         killServer: () => {

@@ -1,11 +1,11 @@
 import { dialog, BrowserWindow } from 'electron';
 import { Response, Request } from 'express';
 
-import { ISpoolServer } from '../server/spool-server';
+import { ISkeinServer } from '../server/skein-server';
 import { NewProjectResponse, OpenProjectResponse } from '../server/server-response-types';
 import { OpenProjectRequest } from '../server/server-requests-types';
 
-export class ElectronSpoolServer implements ISpoolServer {
+export class ElectronSkeinServer implements ISkeinServer {
 
     constructor(private _mainWindow: BrowserWindow) {
     }

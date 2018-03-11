@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs/Subscription';
 
 enum ShowMode {
     ProjectSelection,
-    Spool
+    Skein
 }
 
 @Component({
@@ -19,8 +19,8 @@ enum ShowMode {
                 <spl-project-selection></spl-project-selection>
             </div>
 
-            <div *ngIf="showSpool">
-                <spl-spool></spl-spool>
+            <div *ngIf="showSkein">
+                <spl-skein></spl-skein>
             </div>
         </div>
     `
@@ -42,7 +42,7 @@ export class ShellComponent implements OnDestroy {
 
     private _onProjectChanged(newProject: Project) {
         if (!!newProject) {
-            this._showMode = ShowMode.Spool;
+            this._showMode = ShowMode.Skein;
         } else {
             this._showMode = ShowMode.ProjectSelection;
         }
@@ -52,7 +52,7 @@ export class ShellComponent implements OnDestroy {
         return this._showMode === ShowMode.ProjectSelection;
     }
 
-    public get showSpool(): boolean {
-        return this._showMode === ShowMode.Spool;
+    public get showSkein(): boolean {
+        return this._showMode === ShowMode.Skein;
     }
 }

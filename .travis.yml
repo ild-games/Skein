@@ -1,25 +1,24 @@
 language: node_js
 node_js:
-  - "node"
+- node
 env:
   global:
-    - secure: "bL1ValJlfGe/QkqCZopoyLEf20GrJ6hwhkrdCxsIdsBs9GJZgB1S/hBw+HNsIQyOY3IyEaE5TtMy2WxbwUQTT5xBxBC8hdqy45O//kWJsaR/SyFOM58j07iRD8xzUl0UXYkpW0MVcBX7Yl0Mu6T/pR3mQKwCffUM7B6yiPVcpnvi3j6hkp7YfEtXJoeHgy7eAJzhgTM8s9HBrTDIzL3L3TRQUHtWWr2KWXIEAnaGFHsZNqHh8+k7byc/DuyGQTxBAdOeO37h45eyGCUBIlgQJE99V1p6bRH4ssnO0816lX4is5dJgbj8qepGaDHuXFRiP7wHmuBvpmTUwQ+/t9hGGypDU9gMQM4YpQYHG7/UU51hlM7aXlzduOIUun2dRmhyAQXIZjuz/UmIHIiRKjGnhpnpvic+/t1L92BNqwVNSExFDg8KrBzUc5MOjKJz6SN3GJ5CIhZWuYGuvDHzbetCDOKHWU3SsSluffpFSOiBRdAXjVr2ayky6TvT5mBZmHmW1iW2xH6PsKNuzTQO515IyQnE7B54ciWWY5wgC9qIWZ1qepxF0jwDze9sIh8VehkfB6gt07qAjqiYLTFk4v/jjr/iFalUGlcNhcE08NPRfhGXUWiMPPFp8lc1tUApfdgXHRv5S2bIjIrhE4wR8UpxYSz4sgiva4dmebMQR5MOwVs="
+    secure: E67Wv+XZddBZRK6LueeY+ZPgZGBEQDRASytL6bG577zvinAvsGWyF60wHpAPaThRR76Qczkt29jN42+MyeP0dUkR+MWIPBeiFAw6eqCglU3Iq6uAnlyalw1C0FeRmiaQuNtqeUvhqUXpikk+o6cuUK0Yw3+Kf1pNta+HMrB4QppNCSxDO0TqI318zcLtwugaFCQQ3zffeIhYut/riYDPDUIKlrMK8rFEToJXwzHyRLAw19TKDYHHJ7O+8xjIrItcyTibtw6mwHzz1COJCHtOR2He1wsvGG3jhi+5Ey+khypoCgmjuofY0wIRMMeZ9X6TG2eu5y1QBBQK73ohwH9X481yRxEh6qXBWl/6Dg9Fu5hRzfUCcXQ+qSOLBka0HIWDANCplj1akYkhkpT+B1y8fPx6Gv4bRdKTMJO8BhMou+LF451tAHqbky50iO2upBQPCdPFhkXhxtbbtfLVUX7ORks3So6GNlNjWQLObMuUIKRR6pxwyZ9lvu7nqgdR1Bz4ZhiERIWRWvdcxrCRakOhsnQvalmkcHsBw6/k5JlkCMG/diPPGAjaEKjeJmf5t5GIrgAwwUzB6VwE5rBHwOz4D/ufZBlHIF/IAWFIOwqA7F5N7/oLfP8+5ek3X3UCfERDdA6gy0ikNqMD30gpC6IvAb05Tya0/iWmUBe1n3PzcjI=
 addons:
   apt:
     sources:
-      - google-chrome
+    - google-chrome
     packages:
-      - google-chrome-stable
-      - xvfb
+    - google-chrome-stable
+    - xvfb
 script:
-  - npm run build
-  - npm run test:travis
-  - npm run coverage:travis
-  - npm run e2e:travis
-  - npm run lint
+- npm run build
+- npm run coverage:travis
+- npm run e2e:travis
+- npm run lint
 before_install:
-  - export DISPLAY=':99.0'
-  - Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
-  - npm install -g codeclimate-test-reporter
+- export DISPLAY=':99.0'
+- Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
+- npm install -g codeclimate-test-reporter
 after_script:
-  - codeclimate-test-reporter < ./coverage/lcov.info
+- codeclimate-test-reporter < ./coverage/lcov.info
