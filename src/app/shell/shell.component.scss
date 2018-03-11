@@ -1,27 +1,9 @@
-@import '~sass/mixins';
-@import '~sass/colors';
-
-$shell-padding: 16px;
-
-.shell {
+.container {
     width: 100%;
     height: 100vh;
-    box-sizing: border-box;
-    padding: $shell-padding;
-    background-color: $app-background-color;
-    display: flex;
-    flex-flow: row;
 
-    .project-explorer {
-        flex: 0 1 450px;
-        margin-right: $shell-padding / 2;
-        overflow-y: auto;
-    }
-
-    .workspace {
-        flex: 1 1 auto;
-        width: 800px;
-        margin-left: $shell-padding / 2;
-        padding: 0;
+    div {
+        width: 100%;
+        height: 100%;
     }
 }

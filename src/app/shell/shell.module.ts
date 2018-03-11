@@ -1,13 +1,15 @@
 import { NgModule } from '@angular/core';
 
 import { ShellComponent } from './shell.component';
-import { ProjectExplorerModule } from '../project-explorer/project-explorer.module';
-import { WorkspaceModule } from '../workspace/workspace.module';
+import { SpoolModule } from '../spool/spool.module';
+import { ProjectSelectionModule } from '../project-selection/project-selection.module';
+import { ControlsModule } from '../controls/controls.module';
 
 @NgModule({
     imports: [
-        ProjectExplorerModule,
-        WorkspaceModule
+        SpoolModule,
+        ProjectSelectionModule,
+        ControlsModule
     ],
     declarations: [
         ShellComponent
