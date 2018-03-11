@@ -15,6 +15,7 @@ export class ProjectService {
     public async newProject(): Promise<void> {
         const response = await this._serverComm.get<NewProjectResponse>('newProject');
         if (!response.newProjectKey) {
+            this.project.next(null);
             return;
         }
 
