@@ -2,8 +2,8 @@
 
 import { BrowserWindow, app } from 'electron';
 
-import { initSpoolBackendServer } from '../server/spool-server';
-import { ElectronSpoolServer } from './electron-server';
+import { initSkeinBackendServer } from '../server/skein-server';
+import { ElectronSkeinServer } from './electron-server';
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -13,7 +13,7 @@ function createWindow() {
     // Create the browser window.
     mainWindow = new BrowserWindow({
         width: 800,
-        title: 'Spool',
+        title: 'Skein',
         height: 600,
         icon: __dirname + '/../assets/images/icon.png',
         webPreferences: {
@@ -22,22 +22,22 @@ function createWindow() {
         }
     });
 
-    // start the server to communicate with spool
-    const spoolServer = initSpoolBackendServer(new ElectronSpoolServer(mainWindow));
-    spoolServer.startServer();
+    // start the server to communicate with skein
+    const skeinServer = initSkeinBackendServer(new ElectronSkeinServer(mainWindow));
+    skeinServer.startServer();
 
     // Open the DevTools.
     mainWindow.webContents.openDevTools();
 
-    const loadSpoolURL = () => mainWindow.loadURL('http://localhost:4200');
-    loadSpoolURL();
+    const loadSkeinURL = () => mainWindow.loadURL('http://localhost:4200');
+    loadSkeinURL();
     mainWindow.webContents.on('did-fail-load', () => {
-        setTimeout(() => loadSpoolURL(), 250);
+        setTimeout(() => loadSkeinURL(), 250);
     });
 
     // Emitted when the window is closed.
     mainWindow.on('closed', function () {
-        spoolServer.killServer();
+        skeinServer.killServer();
 
         // Dereference the window object, usually you would store windows
         // in an array if your app supports multi windows, this is the time

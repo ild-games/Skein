@@ -1,10 +1,10 @@
 {
-    "name": "@ild-games/Spool",
+    "name": "@ild-games/Skein",
     "version": "0.1.0",
     "license": "MIT",
     "scripts": {
         "ng": "ng",
-        "start": "npm run build && concurrently -k \"npm run build:angular:watch\" \"npm run spool\"",
+        "start": "npm run build && concurrently -k \"npm run build:angular:watch\" \"npm run skein\"",
         "start:angular": "ng serve --open",
         "build": "npm run build:angular && npm run build:electron",
         "build:electron": "tsc --p ./src/electron/tsconfig.electron.json && gulp",
@@ -18,7 +18,7 @@
         "lint": "ng lint",
         "e2e": "ng e2e",
         "e2e:travis": "ng e2e --watch false --config=./config/protractor.travis.conf.js",
-        "spool": "electron dist/electron/electron-main.js"
+        "skein": "electron dist/electron/electron-main.js"
     },
     "private": true,
     "dependencies": {

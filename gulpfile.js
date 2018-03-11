@@ -2,12 +2,12 @@ var gulp = require('gulp');
 
 moveTask('electron-html', 'src/electron/**/*.html', 'dist/electron');
 
-gulp.task('spool', [
+gulp.task('skein', [
     'electron-html',
 ]);
 
 gulp.task('default', [
-    'spool'
+    'skein'
 ]);
 
 function moveTask(taskName, fileGlob, dest) {
