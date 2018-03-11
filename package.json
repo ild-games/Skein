@@ -4,7 +4,7 @@
     "license": "MIT",
     "scripts": {
         "ng": "ng",
-        "start": "npm run build && concurrently \"npm run build:angular:watch\" \"npm run spool\"",
+        "start": "npm run build && concurrently -k \"npm run build:angular:watch\" \"npm run spool\"",
         "start:angular": "ng serve --open",
         "build": "npm run build:angular && npm run build:electron",
         "build:electron": "tsc --p ./src/electron/tsconfig.electron.json && gulp",

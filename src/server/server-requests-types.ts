@@ -1,6 +1,10 @@
 import { Request } from 'express';
 
-export interface OpenProjectRequest {
+export interface IRequestType {
+    [key: string]: string;
+}
+
+export interface OpenProjectRequest extends IRequestType {
     projectKeyToOpen: string;
 }
 export function parseOpenProjectRequest(req: Request): OpenProjectRequest {

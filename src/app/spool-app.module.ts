@@ -10,12 +10,16 @@ import { WorkspaceModule } from './workspace/workspace.module';
 import { SpoolModule } from './spool/spool.module';
 import { ProjectSelectionModule } from './project-selection/project-selection.module';
 import { ControlsModule } from './controls/controls.module';
+import { ServerCommuncationModule } from './server-communication/server-communication.module';
+import { ProjectModule } from './project/project.module';
 
 @NgModule({
     imports: [
         BrowserModule,
         ControlsModule,
         HttpClientModule,
+        ServerCommuncationModule,
+        ProjectModule,
         ShellModule,
         SpoolModule,
         ProjectSelectionModule,

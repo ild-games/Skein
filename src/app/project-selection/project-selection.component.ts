@@ -4,6 +4,7 @@ import { tap } from 'rxjs/operators';
 import 'rxjs/add/operator/map';
 
 import { NewProjectResponse } from '../../server/server-response-types';
+import { ProjectService } from '../project/project.service';
 
 
 @Component({
@@ -13,7 +14,7 @@ import { NewProjectResponse } from '../../server/server-response-types';
     ],
     template: `
         <div class="container">
-            <button (click)="clickButton()">
+            <button (click)="onNewClicked()">
                 New Project
             </button>
             {{currentProject}}
@@ -23,17 +24,10 @@ import { NewProjectResponse } from '../../server/server-response-types';
 export class ProjectSelectionComponent {
     public currentProject = '';
 
-    constructor(private _http: HttpClient) {
+    constructor(private _project: ProjectService) {
     }
 
-
-    public clickButton() {
-        this._http.get('http://localhost:4200/newProject').map((response: NewProjectResponse) => {
-            if (!response) {
-                return;
-            }
-
-            this.currentProject = response.newProjectKey;
-        }).subscribe();
+    public async onNewClicked() {
+        this.currentProject = await this._project.newProject();
     }
 }
