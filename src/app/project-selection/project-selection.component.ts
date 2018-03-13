@@ -5,6 +5,7 @@ import 'rxjs/add/operator/map';
 
 import { NewProjectResponse } from '../../server/server-response-types';
 import { ProjectService } from '../project/project.service';
+import { ServerCommunicationService } from '../server-communication/server-communication.service';
 
 
 @Component({
@@ -22,10 +23,17 @@ import { ProjectService } from '../project/project.service';
 })
 export class ProjectSelectionComponent {
 
-    constructor(private _project: ProjectService) {
+    constructor(
+        private _project: ProjectService,
+        private _serverComm: ServerCommunicationService) {
     }
 
     public async onNewClicked() {
-        await this._project.newProject();
+        const response = await this._serverComm.get<NewProjectResponse>('newProject');
+        if (!response.newProjectHome) {
+            return;
+        }
+
+        this._project.open(response.newProjectHome);
     }
 }

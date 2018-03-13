@@ -6,6 +6,8 @@ import { ProjectExplorerComponent } from '../project-explorer/project-explorer.c
 import { WorkspaceComponent } from '../workspace/workspace.component';
 import { ProjectService } from '../project/project.service';
 import { ServerCommunicationService } from '../server-communication/server-communication.service';
+import { StoreService } from '../state/store.service';
+import { mainReducer } from '../main.reducer';
 
 
 describe('SkeinComponent', () => {
@@ -18,6 +20,7 @@ describe('SkeinComponent', () => {
                 WorkspaceComponent
             ],
             providers: [
+                { provide: StoreService, useValue: new StoreService(mainReducer) },
                 ProjectService,
                 ServerCommunicationService,
                 HttpClient,

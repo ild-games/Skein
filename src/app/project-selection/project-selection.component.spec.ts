@@ -4,26 +4,30 @@ import { HttpClient, HttpHandler } from '@angular/common/http';
 import { ProjectSelectionComponent } from './project-selection.component';
 import { ProjectService } from '../project/project.service';
 import { ServerCommunicationService } from '../server-communication/server-communication.service';
-import { MockHttpRemotes, MockHttpClient } from '../server-communication/server-communication.service.spec';
 import { Project } from '../project/project';
+import { StoreService } from '../state/store.service';
+import { mainReducer } from '../main.reducer';
+import { MockHttpRemotes, MockHttpClient } from '../server-communication/server-communication-test-helpers';
 
 describe('ProjectSelectionComponent', () => {
     let projectSelectionComponent: ProjectSelectionComponent = null;
     let projectService: ProjectService;
     let project: Project;
+    let mockHttpRemotes: MockHttpRemotes;
 
-    let mockHttpRemotes: MockHttpRemotes = {
-        newProject: (params?: string[]) => {
-            return { newProjectKey: 'TestNewProject' };
-        }
-    };
-    let mockHttpClient = new MockHttpClient(mockHttpRemotes);
     beforeEach(async(() => {
+        mockHttpRemotes = {
+            newProject: (params?: string[]) => {
+                return { newProjectHome: null };
+            }
+        };
+        let mockHttpClient = new MockHttpClient(mockHttpRemotes);
         TestBed.configureTestingModule({
             declarations: [
                 ProjectSelectionComponent,
             ],
             providers: [
+                { provide: StoreService, useValue: new StoreService(mainReducer) },
                 ProjectService,
                 ServerCommunicationService,
                 { provide: HttpClient, useValue: mockHttpClient }
@@ -31,7 +35,7 @@ describe('ProjectSelectionComponent', () => {
         }).compileComponents();
         projectSelectionComponent = TestBed.createComponent(ProjectSelectionComponent).debugElement.componentInstance;
         projectService = TestBed.get(ProjectService);
-        projectService.project.subscribe((newProject: Project) => {
+        projectService.subscribe((newProject: Project) => {
             project = newProject;
         });
     }));
@@ -40,9 +44,16 @@ describe('ProjectSelectionComponent', () => {
         expect(projectSelectionComponent).toBeTruthy();
     }));
 
-    it('should create a new project when the newProject button handler is called ', async(() => {
+    it('should keep the project home as undefined when a new project is initiated but the process is canceled', async(() => {
         projectSelectionComponent.onNewClicked().then(() => {
-            expect(project.key).toBe('TestNewProject');
+            expect(project.home).toBeUndefined();
+        });
+    }));
+
+    it('should create a new project when the newProject button handler is called ', async(() => {
+        mockHttpRemotes.newProject = (params?: string[]) => new Object({ newProjectHome: 'TestNewProject' });
+        projectSelectionComponent.onNewClicked().then(() => {
+            expect(project.home).toBe('TestNewProject');
         });
     }));
 });

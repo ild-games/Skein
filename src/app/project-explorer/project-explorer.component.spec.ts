@@ -4,15 +4,19 @@ import { HttpClient, HttpHandler } from '@angular/common/http';
 import { ProjectExplorerComponent } from './project-explorer.component';
 import { ProjectService } from '../project/project.service';
 import { ServerCommunicationService } from '../server-communication/server-communication.service';
+import { StoreService } from '../state/store.service';
+import { mainReducer } from '../main.reducer';
 
 describe('ProjectExplorerComponent', () => {
     let projectExplorerComponent: ProjectExplorerComponent = null;
+
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [
                 ProjectExplorerComponent,
             ],
             providers: [
+                { provide: StoreService, useValue: new StoreService(mainReducer) },
                 ProjectService,
                 ServerCommunicationService,
                 HttpClient,
@@ -33,7 +37,8 @@ describe('ProjectExplorerComponent', () => {
 
     it('has a project key equal to the key of the project created with the project service', () => {
         let projectService = TestBed.get(ProjectService) as ProjectService;
-        projectService.project.next({ key: 'NewProject' });
-        expect(projectExplorerComponent.projectKey).toBe('NewProject');
+        projectService.open('NewProject').then(() => {
+            expect(projectExplorerComponent.projectKey).toBe('NewProject');
+        });
     });
 });

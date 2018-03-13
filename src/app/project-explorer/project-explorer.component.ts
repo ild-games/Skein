@@ -16,11 +16,11 @@ import { Subscription } from 'rxjs/Subscription';
     `
 })
 export class ProjectExplorerComponent implements OnDestroy {
-    private _project: Project;
-    private _projectSubscription: Subscription;
+    private _projectKey: string = null;
+    private _projectSubscription: Subscription = null;
 
     constructor(private _projectService: ProjectService) {
-        this._projectSubscription = this._projectService.project.subscribe((newProject: Project) => {
+        this._projectSubscription = this._projectService.subscribe((newProject: Project) => {
             this._onProjectChanged(newProject);
         });
     }
@@ -30,14 +30,12 @@ export class ProjectExplorerComponent implements OnDestroy {
     }
 
     private _onProjectChanged(newProject: Project) {
-        this._project = newProject;
+        if (newProject && newProject.home) {
+            this._projectKey = newProject.home;
+        }
     }
 
     get projectKey(): string {
-        if (!this._project) {
-            return null;
-        }
-
-        return this._project.key;
+        return this._projectKey;
     }
 }
