@@ -178,7 +178,7 @@ describe('undo-redo', function () {
     describe('keyCombinations', function () {
         it('identifies non macOS undo key combinations', function () {
             let undoEvent: SkeinKeyEvent = {
-                rawEvent: document.createEvent("KeyboardEvent") as KeyboardEvent,
+                rawEvent: document.createEvent('KeyboardEvent') as KeyboardEvent,
                 key: 'z',
                 ctrlKey: true,
                 shiftKey: false,
@@ -186,7 +186,7 @@ describe('undo-redo', function () {
             };
             expect(undoKeyCombination(undoEvent)).toBe(true);
             let redoEvent: SkeinKeyEvent = {
-                rawEvent: document.createEvent("KeyboardEvent") as KeyboardEvent,
+                rawEvent: document.createEvent('KeyboardEvent') as KeyboardEvent,
                 key: 'z',
                 ctrlKey: true,
                 shiftKey: true,
@@ -194,7 +194,7 @@ describe('undo-redo', function () {
             };
             expect(undoKeyCombination(redoEvent)).toBe(false);
             let differentEvent: SkeinKeyEvent = {
-                rawEvent: document.createEvent("KeyboardEvent") as KeyboardEvent,
+                rawEvent: document.createEvent('KeyboardEvent') as KeyboardEvent,
                 key: 'z',
                 ctrlKey: false,
                 shiftKey: true,
@@ -202,7 +202,7 @@ describe('undo-redo', function () {
             };
             expect(undoKeyCombination(differentEvent)).toBe(false);
             differentEvent = {
-                rawEvent: document.createEvent("KeyboardEvent") as KeyboardEvent,
+                rawEvent: document.createEvent('KeyboardEvent') as KeyboardEvent,
                 key: 'y',
                 ctrlKey: false,
                 shiftKey: true,
@@ -213,7 +213,7 @@ describe('undo-redo', function () {
 
         it('identifies macOS undo key combinations', function () {
             let undoEvent: SkeinKeyEvent = {
-                rawEvent: document.createEvent("KeyboardEvent") as KeyboardEvent,
+                rawEvent: document.createEvent('KeyboardEvent') as KeyboardEvent,
                 key: 'z',
                 ctrlKey: false,
                 shiftKey: false,
@@ -224,7 +224,7 @@ describe('undo-redo', function () {
 
         it('identifies non macOS redo key combinations', function () {
             let redoEvent: SkeinKeyEvent = {
-                rawEvent: document.createEvent("KeyboardEvent") as KeyboardEvent,
+                rawEvent: document.createEvent('KeyboardEvent') as KeyboardEvent,
                 key: 'z',
                 ctrlKey: true,
                 shiftKey: true,
@@ -232,7 +232,7 @@ describe('undo-redo', function () {
             };
             expect(redoKeyCombination(redoEvent)).toBe(true);
             let undoEvent: SkeinKeyEvent = {
-                rawEvent: document.createEvent("KeyboardEvent") as KeyboardEvent,
+                rawEvent: document.createEvent('KeyboardEvent') as KeyboardEvent,
                 key: 'z',
                 ctrlKey: true,
                 shiftKey: false,
@@ -240,7 +240,7 @@ describe('undo-redo', function () {
             };
             expect(redoKeyCombination(undoEvent)).toBe(false);
             let differentEvent: SkeinKeyEvent = {
-                rawEvent: document.createEvent("KeyboardEvent") as KeyboardEvent,
+                rawEvent: document.createEvent('KeyboardEvent') as KeyboardEvent,
                 key: 'z',
                 ctrlKey: false,
                 shiftKey: true,
@@ -248,7 +248,7 @@ describe('undo-redo', function () {
             };
             expect(redoKeyCombination(differentEvent)).toBe(false);
             differentEvent = {
-                rawEvent: document.createEvent("KeyboardEvent") as KeyboardEvent,
+                rawEvent: document.createEvent('KeyboardEvent') as KeyboardEvent,
                 key: 'y',
                 ctrlKey: false,
                 shiftKey: true,
@@ -259,7 +259,7 @@ describe('undo-redo', function () {
 
         it('identifies macOS redo key combinations', function () {
             let redoEvent: SkeinKeyEvent = {
-                rawEvent: document.createEvent("KeyboardEvent") as KeyboardEvent,
+                rawEvent: document.createEvent('KeyboardEvent') as KeyboardEvent,
                 key: 'z',
                 ctrlKey: true,
                 shiftKey: true,

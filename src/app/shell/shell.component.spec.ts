@@ -85,7 +85,7 @@ describe('ShellComponent', () => {
             storeService.dispatch(testAction(testState));
             expect(storeService.getState()).toBe(testState);
             let undoEvent: SkeinKeyEvent = {
-                rawEvent: document.createEvent("KeyboardEvent") as KeyboardEvent,
+                rawEvent: document.createEvent('KeyboardEvent') as KeyboardEvent,
                 key: 'z',
                 ctrlKey: true,
                 shiftKey: false,
@@ -100,7 +100,7 @@ describe('ShellComponent', () => {
             storeService.dispatch(testAction({ isNewState: true }));
             expect(storeService.getState().isNewState).toEqual(true);
             let undoEvent: SkeinKeyEvent = {
-                rawEvent: document.createEvent("KeyboardEvent") as KeyboardEvent,
+                rawEvent: document.createEvent('KeyboardEvent') as KeyboardEvent,
                 key: 'z',
                 ctrlKey: true,
                 shiftKey: false,
@@ -109,7 +109,7 @@ describe('ShellComponent', () => {
             callKeyDownHandlers(undoEvent);
             expect(storeService.getState().isDefaultState).toEqual(true);
             let redoEvent: SkeinKeyEvent = {
-                rawEvent: document.createEvent("KeyboardEvent") as KeyboardEvent,
+                rawEvent: document.createEvent('KeyboardEvent') as KeyboardEvent,
                 key: 'z',
                 ctrlKey: true,
                 shiftKey: true,

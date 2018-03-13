@@ -1,4 +1,4 @@
-import { registerKeyDownHandler } from "./keyboard-multiplexer";
+import { registerKeyDownHandler } from './keyboard-multiplexer';
 
 describe('keyboard-multiplexer', function () {
     it('one keyDownHandler get called', function () {

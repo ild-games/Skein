@@ -15,11 +15,9 @@ function skeinKeyEventFromKeyboardEvent(event: KeyboardEvent): SkeinKeyEvent {
     };
 }
 
-export interface KeyEventHandler {
-    (event: SkeinKeyEvent): void;
-}
-
+export type KeyEventHandler = (event: SkeinKeyEvent) => void;
 let keyDownHandlers: KeyEventHandler[] = [];
+
 export function registerKeyDownHandler(handler: KeyEventHandler) {
     keyDownHandlers.push(handler);
 }
@@ -31,4 +29,4 @@ export function callKeyDownHandlers(event: SkeinKeyEvent) {
 }
 document.onkeydown = (event) => {
     callKeyDownHandlers(skeinKeyEventFromKeyboardEvent(event));
-}
+};
