@@ -11,7 +11,7 @@ More information about Yarn can be found at the [Yarn github page](https://githu
 
 ## Setup Instructions
 
-[Yarn](https://yarnpkg.com/en/) is the preferred node package maanger for Skein. We check in the yarn.lock file instead of the npm lock file. The following yarn commands can be replaced with the appropriate npm commands if desired.
+[Yarn](https://yarnpkg.com/en/) is the preferred node package manager for Skein. We check in the yarn.lock file instead of the npm lock file. The following yarn commands can be replaced with the appropriate npm commands if desired.
 
 ### Installing Dependencies
 1. Install yarn

@@ -4,6 +4,7 @@ import { Response, Request } from 'express';
 import { ISkeinServer } from '../server/skein-server';
 import { NewProjectResponse, OpenProjectResponse } from '../server/server-response-types';
 import { OpenProjectRequest } from '../server/server-requests-types';
+import { normalize } from './util/path';
 
 export class ElectronSkeinServer implements ISkeinServer {
 
@@ -16,10 +17,10 @@ export class ElectronSkeinServer implements ISkeinServer {
     public newProject(): NewProjectResponse {
         const selectedProject = dialog.showOpenDialog(this._mainWindow, { properties: ['openDirectory', 'createDirectory'] });
         if (!selectedProject || selectedProject.length === 0) {
-            return { newProjectKey: null };
+            return { newProjectHome: null };
         }
 
-        return { newProjectKey: selectedProject[0] };
+        return { newProjectHome: normalize(selectedProject[0]) };
     }
 
     public openProject(request: OpenProjectRequest): OpenProjectResponse {

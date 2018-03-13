@@ -3,7 +3,7 @@ export interface IResponseType {
 }
 
 export interface NewProjectResponse extends IResponseType {
-    newProjectKey: string;
+    newProjectHome: string;
 }
 
 export interface OpenProjectResponse extends IResponseType {
