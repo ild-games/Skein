@@ -2,6 +2,7 @@ import { List } from 'immutable';
 
 import { Action } from './actions';
 import { Reducer, Store } from 'redux';
+import { SkeinKeyEvent } from '../util/keyboard-multiplexer';
 
 export const UNDO_ACTION = 'UndoRedo.Undo';
 export const REDO_ACTION = 'UndoRedo.Redo';
@@ -56,7 +57,7 @@ export function createUndoRedoReducer<T>(rootReducer: Reducer<T>): Reducer<UndoR
     };
 }
 
-export function undoKeyCombination(event: KeyboardEvent): boolean {
+export function undoKeyCombination(event: SkeinKeyEvent): boolean {
     return (
         (event.ctrlKey || event.metaKey) &&
         !event.shiftKey &&
@@ -64,7 +65,7 @@ export function undoKeyCombination(event: KeyboardEvent): boolean {
     );
 }
 
-export function redoKeyCombination(event: KeyboardEvent): boolean {
+export function redoKeyCombination(event: SkeinKeyEvent): boolean {
     return (
         (event.ctrlKey || event.metaKey) &&
         event.shiftKey &&

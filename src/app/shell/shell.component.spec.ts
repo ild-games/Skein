@@ -14,6 +14,7 @@ import { getState } from '../state/undo-redo.spec';
 import { createUndoRedoReducer } from '../state/undo-redo';
 import { Store, createStore } from 'redux';
 import { testReducer, testAction } from '../state/store.service.spec';
+import { SkeinKeyEvent, callKeyDownHandlers } from '../util/keyboard-multiplexer';
 
 describe('ShellComponent', () => {
     let shellComponent: ShellComponent = null;
@@ -83,8 +84,14 @@ describe('ShellComponent', () => {
             let testState = { isNewState: true };
             storeService.dispatch(testAction(testState));
             expect(storeService.getState()).toBe(testState);
-            let undoEvent = new KeyboardEvent('keypress', { ctrlKey: true, key: 'z' });
-            document.onkeydown(undoEvent);
+            let undoEvent: SkeinKeyEvent = {
+                rawEvent: document.createEvent("KeyboardEvent") as KeyboardEvent,
+                key: 'z',
+                ctrlKey: true,
+                shiftKey: false,
+                metaKey: false
+            };
+            callKeyDownHandlers(undoEvent);
             expect(storeService.getState()).not.toBe(testState);
         }));
 
@@ -92,11 +99,23 @@ describe('ShellComponent', () => {
             let storeService = TestBed.get(StoreService) as StoreService;
             storeService.dispatch(testAction({ isNewState: true }));
             expect(storeService.getState().isNewState).toEqual(true);
-            let undoEvent = new KeyboardEvent('keypress', { ctrlKey: true, key: 'z' });
-            document.onkeydown(undoEvent);
+            let undoEvent: SkeinKeyEvent = {
+                rawEvent: document.createEvent("KeyboardEvent") as KeyboardEvent,
+                key: 'z',
+                ctrlKey: true,
+                shiftKey: false,
+                metaKey: false
+            };
+            callKeyDownHandlers(undoEvent);
             expect(storeService.getState().isDefaultState).toEqual(true);
-            let redoEvent = new KeyboardEvent('keypress', { ctrlKey: true, shiftKey: true, key: 'z' });
-            document.onkeydown(redoEvent);
+            let redoEvent: SkeinKeyEvent = {
+                rawEvent: document.createEvent("KeyboardEvent") as KeyboardEvent,
+                key: 'z',
+                ctrlKey: true,
+                shiftKey: true,
+                metaKey: false
+            };
+            callKeyDownHandlers(redoEvent);
             expect(storeService.getState().isNewState).toEqual(true);
         }));
     });

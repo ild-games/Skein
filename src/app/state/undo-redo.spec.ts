@@ -10,6 +10,7 @@ import {
     redoKeyCombination
 } from './undo-redo';
 import { testReducer, testAction } from './store.service.spec';
+import { SkeinKeyEvent } from '../util/keyboard-multiplexer';
 
 // Undo-redo test redux helpers
 export function getState(store: any): any {
@@ -176,35 +177,95 @@ describe('undo-redo', function () {
 
     describe('keyCombinations', function () {
         it('identifies non macOS undo key combinations', function () {
-            let undoEvent = new KeyboardEvent('keypress', { ctrlKey: true, key: 'z' });
+            let undoEvent: SkeinKeyEvent = {
+                rawEvent: document.createEvent("KeyboardEvent") as KeyboardEvent,
+                key: 'z',
+                ctrlKey: true,
+                shiftKey: false,
+                metaKey: false
+            };
             expect(undoKeyCombination(undoEvent)).toBe(true);
-            let redoEvent = new KeyboardEvent('keypress', { ctrlKey: true, shiftKey: true, key: 'z' });
+            let redoEvent: SkeinKeyEvent = {
+                rawEvent: document.createEvent("KeyboardEvent") as KeyboardEvent,
+                key: 'z',
+                ctrlKey: true,
+                shiftKey: true,
+                metaKey: false
+            };
             expect(undoKeyCombination(redoEvent)).toBe(false);
-            let differentEvent = new KeyboardEvent('keypress', { ctrlKey: false, shiftKey: true, key: 'z' });
+            let differentEvent: SkeinKeyEvent = {
+                rawEvent: document.createEvent("KeyboardEvent") as KeyboardEvent,
+                key: 'z',
+                ctrlKey: false,
+                shiftKey: true,
+                metaKey: false
+            };
             expect(undoKeyCombination(differentEvent)).toBe(false);
-            differentEvent = new KeyboardEvent('keypress', { ctrlKey: false, shiftKey: true, key: 'y' });
+            differentEvent = {
+                rawEvent: document.createEvent("KeyboardEvent") as KeyboardEvent,
+                key: 'y',
+                ctrlKey: false,
+                shiftKey: true,
+                metaKey: true
+            };
             expect(undoKeyCombination(differentEvent)).toBe(false);
         });
 
         it('identifies macOS undo key combinations', function () {
-            let event = new KeyboardEvent('keypress', { metaKey: true, key: 'z' });
-            expect(undoKeyCombination(event)).toBe(true);
+            let undoEvent: SkeinKeyEvent = {
+                rawEvent: document.createEvent("KeyboardEvent") as KeyboardEvent,
+                key: 'z',
+                ctrlKey: false,
+                shiftKey: false,
+                metaKey: true
+            };
+            expect(undoKeyCombination(undoEvent)).toBe(true);
         });
 
         it('identifies non macOS redo key combinations', function () {
-            let redoEvent = new KeyboardEvent('keypress', { ctrlKey: true, shiftKey: true, key: 'z' });
+            let redoEvent: SkeinKeyEvent = {
+                rawEvent: document.createEvent("KeyboardEvent") as KeyboardEvent,
+                key: 'z',
+                ctrlKey: true,
+                shiftKey: true,
+                metaKey: false
+            };
             expect(redoKeyCombination(redoEvent)).toBe(true);
-            let undoEvent = new KeyboardEvent('keypress', { ctrlKey: true, key: 'z' });
+            let undoEvent: SkeinKeyEvent = {
+                rawEvent: document.createEvent("KeyboardEvent") as KeyboardEvent,
+                key: 'z',
+                ctrlKey: true,
+                shiftKey: false,
+                metaKey: false
+            };
             expect(redoKeyCombination(undoEvent)).toBe(false);
-            let differentEvent = new KeyboardEvent('keypress', { ctrlKey: false, shiftKey: true, key: 'z' });
+            let differentEvent: SkeinKeyEvent = {
+                rawEvent: document.createEvent("KeyboardEvent") as KeyboardEvent,
+                key: 'z',
+                ctrlKey: false,
+                shiftKey: true,
+                metaKey: false
+            };
             expect(redoKeyCombination(differentEvent)).toBe(false);
-            differentEvent = new KeyboardEvent('keypress', { ctrlKey: false, shiftKey: true, key: 'y' });
+            differentEvent = {
+                rawEvent: document.createEvent("KeyboardEvent") as KeyboardEvent,
+                key: 'y',
+                ctrlKey: false,
+                shiftKey: true,
+                metaKey: false
+            };
             expect(redoKeyCombination(differentEvent)).toBe(false);
         });
 
-        it('identifies macOS undo key combinations', function () {
-            let event = new KeyboardEvent('keypress', { metaKey: true, shiftKey: true, key: 'z' });
-            expect(redoKeyCombination(event)).toBe(true);
+        it('identifies macOS redo key combinations', function () {
+            let redoEvent: SkeinKeyEvent = {
+                rawEvent: document.createEvent("KeyboardEvent") as KeyboardEvent,
+                key: 'z',
+                ctrlKey: true,
+                shiftKey: true,
+                metaKey: false
+            };
+            expect(redoKeyCombination(redoEvent)).toBe(true);
         });
     });
 });

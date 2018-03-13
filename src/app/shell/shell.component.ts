@@ -4,6 +4,7 @@ import { Project } from '../project/project';
 import { Subscription } from 'rxjs/Subscription';
 import { undoKeyCombination, redoKeyCombination } from '../state/undo-redo';
 import { StoreService } from '../state/store.service';
+import { registerKeyDownHandler } from '../util/keyboard-multiplexer';
 
 enum ShowMode {
     ProjectSelection,
@@ -62,16 +63,16 @@ export class ShellComponent implements OnDestroy {
     }
 
     private _disableBrowserUndoRedo() {
-        document.onkeydown = event => {
+        registerKeyDownHandler((event) => {
             if (undoKeyCombination(event)) {
-                event.preventDefault();
+                event.rawEvent.preventDefault();
                 this._storeService.undo();
             }
 
             if (redoKeyCombination(event)) {
-                event.preventDefault();
+                event.rawEvent.preventDefault();
                 this._storeService.redo();
             }
-        };
+        });
     }
 }
