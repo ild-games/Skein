@@ -12,9 +12,9 @@ let mainWindow: BrowserWindow;
 function createWindow() {
     // Create the browser window.
     mainWindow = new BrowserWindow({
-        width: 800,
+        width: 820,
         title: 'Skein',
-        height: 600,
+        height: 580,
         icon: __dirname + '/../assets/images/icon.png',
         webPreferences: {
             nodeIntegration: false,

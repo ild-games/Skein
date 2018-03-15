@@ -1,7 +1,12 @@
 @import './colors.scss';
 @import './mixins.scss';
+@import '../assets/css/font-lato.css';
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+
 
 html, body, * {
+    font-family: "Lato", sans-serif;
     padding: 0;
     margin: 0;
 }

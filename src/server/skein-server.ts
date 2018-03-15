@@ -1,12 +1,13 @@
 import * as express from 'express';
 import { Request, Response } from 'express';
 import { Server } from 'http';
-import { NewProjectResponse, OpenProjectResponse } from './server-response-types';
+import { NewProjectResponse, OpenProjectResponse, RecentProjectsResponse } from './server-response-types';
 import { OpenProjectRequest, parseOpenProjectRequest } from './server-requests-types';
 
 export interface ISkeinServer {
-    newProject(): NewProjectResponse;
-    openProject(request: OpenProjectRequest): OpenProjectResponse;
+    newProject(): Promise<NewProjectResponse>;
+    openProject(request: OpenProjectRequest): Promise<OpenProjectResponse>;
+    recentProjects(): Promise<RecentProjectsResponse>;
 }
 
 export interface ServerLifecycle {
@@ -24,8 +25,9 @@ export function initSkeinBackendServer(server: ISkeinServer): ServerLifecycle {
 
 
     /* GET and POST handlers */
-    app.get('/newProject', (req, res) => res.send(server.newProject()));
-    app.get('/openProject', (req, res) => res.send(server.openProject(parseOpenProjectRequest(req))));
+    app.get('/newProject', async (req, res) => res.send(await server.newProject()));
+    app.get('/openProject', async (req, res) => res.send(await server.openProject(parseOpenProjectRequest(req))));
+    app.get('/recentProjects', async (req, res) => res.send(await server.recentProjects()));
 
     return {
         startServer: () => {

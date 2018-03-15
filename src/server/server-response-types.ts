@@ -1,5 +1,5 @@
 export interface IResponseType {
-    [key: string]: string;
+    [key: string]: any;
 }
 
 export interface NewProjectResponse extends IResponseType {
@@ -8,4 +8,9 @@ export interface NewProjectResponse extends IResponseType {
 
 export interface OpenProjectResponse extends IResponseType {
     message: string;
+}
+
+export type RecentProject = { name: string, root: string };
+export interface RecentProjectsResponse extends IResponseType {
+    recentProjects: RecentProject[]
 }

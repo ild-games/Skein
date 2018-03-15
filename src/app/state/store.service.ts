@@ -6,22 +6,20 @@ import { UndoRedoState, createUndoRedoReducer, undoAction, redoAction } from './
 import { Action } from './actions';
 import { SkeinState } from './skein-state';
 import { Subscription } from 'rxjs/Subscription';
+import { SubscriptionService } from './subscription.service';
 
 @Injectable()
-export class StoreService {
+export class StoreService extends SubscriptionService {
     private _store: Store<UndoRedoState<any>>;
     private _state: BehaviorSubject<SkeinState>;
 
     constructor(reducer: Reducer<any>) {
+        super();
         this._store = createStore(createUndoRedoReducer(reducer));
         this._state = new BehaviorSubject(this.getState());
         this._store.subscribe(() => {
             this._state.next(this.getState());
         });
-    }
-
-    public subscribe(next: (val: SkeinState) => void): Subscription {
-        return this._state.subscribe(next);
     }
 
     public dispatch(action: Action, mergeKey?: any) {
@@ -41,5 +39,9 @@ export class StoreService {
 
     public redo() {
         this.dispatch(redoAction());
+    }
+
+    protected _subscribableState(): BehaviorSubject<any> {
+        return this._state;
     }
 }
