@@ -30,6 +30,21 @@ export class ServerCommunicationService {
         });
     }
 
+    public post<ReqType extends IRequestType>(postCommand: string, request: ReqType): Promise<null>;
+    public post<ReqType extends IRequestType, ResType extends IResponseType>(postCommand: string, request: ReqType): Promise<ResType> {
+        return new Promise((resolve) => {
+            let fullCommand = `${ServerCommunicationService.website}/${postCommand}`;
+            this._http.post(fullCommand, request).subscribe((response: ResType) => {
+                if (!response) {
+                    resolve(null);
+                }
+
+                resolve(response);
+            });
+        });
+    }
+
+
     public static get website(): string {
         return 'http://localhost:4200';
     }

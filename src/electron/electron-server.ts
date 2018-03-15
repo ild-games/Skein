@@ -18,17 +18,20 @@ export class ElectronSkeinServer implements ISkeinServer {
     public async newProject(): Promise<NewProjectResponse> {
         const selectedProject = dialog.showOpenDialog(this._mainWindow, { properties: ['openDirectory', 'createDirectory'] });
         if (!selectedProject || selectedProject.length === 0) {
-            return { newProjectHome: null };
+            return { newProjectRoot: null };
         }
 
-        return { newProjectHome: pathNormalize(selectedProject[0]) };
+        this._mainWindow.setResizable(true);
+        this._mainWindow.maximize();
+        return { newProjectRoot: pathNormalize(selectedProject[0]) };
     }
 
-    public async openProject(request: OpenProjectRequest): Promise<OpenProjectResponse> {
-        const projectDirectory = request.projectKeyToOpen;
-        return {
-            message: 'ok I\'ll try to open it'
-        };
+    public async openProject(request: OpenProjectRequest): Promise<null> {
+        console.log("openProject");
+        console.log(request);
+        this._mainWindow.setResizable(true);
+        this._mainWindow.maximize();
+        return null;
     }
 
     public async recentProjects(): Promise<RecentProjectsResponse> {

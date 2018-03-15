@@ -10,17 +10,22 @@ import { ElectronSkeinServer } from './electron-server';
 let mainWindow: BrowserWindow;
 
 function createWindow() {
+    const initialSize = { x: 820, y: 580 };
     // Create the browser window.
     mainWindow = new BrowserWindow({
-        width: 820,
+        width: initialSize.x,
         title: 'Skein',
-        height: 580,
+        height: initialSize.y,
         icon: __dirname + '/../assets/images/icon.png',
         webPreferences: {
             nodeIntegration: false,
             preload: './preload.js'
         }
     });
+    mainWindow.unmaximize();
+    mainWindow.setMinimumSize(initialSize.x, initialSize.y);
+    mainWindow.setResizable(false);
+    mainWindow.center();
 
     // start the server to communicate with skein
     const skeinServer = initSkeinBackendServer(new ElectronSkeinServer(mainWindow));

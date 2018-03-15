@@ -3,14 +3,14 @@ export interface IResponseType {
 }
 
 export interface NewProjectResponse extends IResponseType {
-    newProjectHome: string;
+    newProjectRoot: string;
 }
 
 export interface OpenProjectResponse extends IResponseType {
     message: string;
 }
 
-export type RecentProject = { name: string, root: string };
+export type ProjectSelection = { name: string, root: string };
 export interface RecentProjectsResponse extends IResponseType {
-    recentProjects: RecentProject[]
+    recentProjects: ProjectSelection[];
 }

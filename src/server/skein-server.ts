@@ -1,8 +1,9 @@
 import * as express from 'express';
 import { Request, Response } from 'express';
 import { Server } from 'http';
+import { json as jsonBodyParser } from 'body-parser';
 import { NewProjectResponse, OpenProjectResponse, RecentProjectsResponse } from './server-response-types';
-import { OpenProjectRequest, parseOpenProjectRequest } from './server-requests-types';
+import { OpenProjectRequest } from './server-requests-types';
 
 export interface ISkeinServer {
     newProject(): Promise<NewProjectResponse>;
@@ -21,13 +22,13 @@ export function initSkeinBackendServer(server: ISkeinServer): ServerLifecycle {
 
     /* basic express setup */
     app.use(express.static(__dirname + '/../app'));
-    app.get('/', (req, res) => res.sendFile('index.html', { root: __dirname + '/../app/' }));
-
+    app.use(jsonBodyParser());
 
     /* GET and POST handlers */
+    app.get('/', (req, res) => res.sendFile('index.html', { root: __dirname + '/../app/' }));
     app.get('/newProject', async (req, res) => res.send(await server.newProject()));
-    app.get('/openProject', async (req, res) => res.send(await server.openProject(parseOpenProjectRequest(req))));
     app.get('/recentProjects', async (req, res) => res.send(await server.recentProjects()));
+    app.post('/openProject', async (req, res) => res.send(await server.openProject(req.body)));
 
     return {
         startServer: () => {

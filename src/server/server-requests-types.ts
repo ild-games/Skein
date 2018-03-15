@@ -1,14 +1,10 @@
 import { Request } from 'express';
+import { RecentProjectsResponse, ProjectSelection } from './server-response-types';
 
 export interface IRequestType {
-    [key: string]: string;
+    [key: string]: any;
 }
 
 export interface OpenProjectRequest extends IRequestType {
-    projectKeyToOpen: string;
-}
-export function parseOpenProjectRequest(req: Request): OpenProjectRequest {
-    return {
-        projectKeyToOpen: req.params.projectKeyToOpen
-    };
+    projectToOpen: ProjectSelection;
 }
