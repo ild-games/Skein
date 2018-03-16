@@ -2,19 +2,26 @@ import * as express from 'express';
 import { Request, Response } from 'express';
 import { Server } from 'http';
 import { json as jsonBodyParser } from 'body-parser';
-import { NewProjectResponse, OpenProjectResponse, RecentProjectsResponse } from './server-response-types';
+import { NewProjectResponse, RecentProjectsResponse } from './server-response-types';
 import { OpenProjectRequest } from './server-requests-types';
+import { centerAndResetToInitial } from '../electron/util/window';
 
 export interface ISkeinServer {
+    // gets
     newProject(): Promise<NewProjectResponse>;
-    openProject(request: OpenProjectRequest): Promise<OpenProjectResponse>;
     recentProjects(): Promise<RecentProjectsResponse>;
+    centerAndResetToInitial(): Promise<void>;
+
+    // posts
+    openProject(request: OpenProjectRequest): Promise<void>;
 }
 
 export interface ServerLifecycle {
     startServer(): void;
     killServer(): void;
 }
+
+export const MAX_RECENT_PROJECTS = 15;
 
 export function initSkeinBackendServer(server: ISkeinServer): ServerLifecycle {
     const app = express();
@@ -28,6 +35,7 @@ export function initSkeinBackendServer(server: ISkeinServer): ServerLifecycle {
     app.get('/', (req, res) => res.sendFile('index.html', { root: __dirname + '/../app/' }));
     app.get('/newProject', async (req, res) => res.send(await server.newProject()));
     app.get('/recentProjects', async (req, res) => res.send(await server.recentProjects()));
+    app.get('/centerAndResetToInitial', async (req, res) => res.send(await server.centerAndResetToInitial()));
     app.post('/openProject', async (req, res) => res.send(await server.openProject(req.body)));
 
     return {

@@ -1,5 +1,5 @@
-import { Subscription } from "rxjs/Subscription";
-import { BehaviorSubject } from "rxjs/BehaviorSubject";
+import { Subscription } from 'rxjs/Subscription';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 export abstract class SubscriptionService {
     public subscribe<T>(next: (val: T) => void): Subscription {

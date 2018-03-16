@@ -30,8 +30,8 @@ export class ProjectExplorerComponent implements OnDestroy {
     }
 
     private _onProjectChanged(newProject: Project) {
-        if (newProject && newProject.home) {
-            this._projectKey = newProject.home;
+        if (newProject && newProject.root) {
+            this._projectKey = newProject.name;
         }
     }
 

@@ -9,6 +9,7 @@ export class ServerCommunicationService {
     constructor(private _http: HttpClient) {
     }
 
+    public get(getCommand: string): Promise<void>;
     public get<ResType extends IResponseType>(getCommand: string): Promise<ResType>;
     public get<ReqType extends IRequestType, ResType extends IResponseType>(getCommand: string, request?: ReqType): Promise<ResType>;
     public get<ReqType extends IRequestType, ResType extends IResponseType>(getCommand: string, request?: ReqType): Promise<ResType> {

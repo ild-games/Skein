@@ -1,12 +1,15 @@
 import { Action } from '../state/actions';
+import { ProjectSelection } from '../../server/server-response-types';
 
 export interface Project {
-    home?: string;
+    root?: string;
+    name?: string;
 }
 
 const ACTION_SWITCH_PROJECT = 'Project.Switch';
 interface SwitchProjectAction extends Action {
-    home: string;
+    root: string;
+    name: string;
 }
 
 export function projectReducer(state: Project = {}, action: Action): Project {
@@ -22,19 +25,21 @@ export function projectReducer(state: Project = {}, action: Action): Project {
 
 /**
  * Create a function that can be used to switch what project is open.
- * @param  home The home path of the project.
+ * @param  project The project being opened
  * @return An action that can be dispatched to switch the project.
  */
-export function switchProjectAction(home: string): SwitchProjectAction {
+export function switchProjectAction(project: ProjectSelection): SwitchProjectAction {
     return {
         type: ACTION_SWITCH_PROJECT,
-        home
+        root: project.root,
+        name: project.name
     };
 }
 
 function _switchProject(project: Project, action: SwitchProjectAction): Project {
     return {
         ...project,
-        home: action.home,
+        root: action.root,
+        name: action.name
     };
 }

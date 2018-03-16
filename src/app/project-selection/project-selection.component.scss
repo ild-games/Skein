@@ -35,17 +35,18 @@
         }
 
         .actions {
-            float: right;
-            padding: $spacer-unit;
+            padding: $spacer-unit $spacer-unit ($spacer-unit / 2) $spacer-unit;
             flex: 0 0 $font-size-heading;
+            display: flex;
+            justify-content: center;
         }
 
         .actions > a {
             @include clean-link;
-            float: right;
             font-size: $font-size-heading;
             line-height: $font-size-heading;
             font-weight: 300;
+            padding-right: $spacer-unit * 2;
         }
     }
 

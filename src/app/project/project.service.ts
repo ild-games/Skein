@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { ServerCommunicationService } from '../server-communication/server-communication.service';
-import { NewProjectResponse } from '../../server/server-response-types';
+import { NewProjectResponse, ProjectSelection } from '../../server/server-response-types';
 import { Project, switchProjectAction } from './project';
 import { Subscription } from 'rxjs/Subscription';
 import { PartialObserver } from 'rxjs/Observer';
@@ -25,12 +25,12 @@ export class ProjectService extends SubscriptionService {
         });
     }
 
-    public async open(projectHome: string): Promise<void> {
-        if (!projectHome || projectHome === '') {
+    public async open(project: ProjectSelection): Promise<void> {
+        if (!project || project.root === '') {
             return;
         }
 
-        this._storeService.dispatch(switchProjectAction(projectHome));
+        this._storeService.dispatch(switchProjectAction(project));
         this._storeService.dispatch(clearUndoHistoryAction());
     }
 

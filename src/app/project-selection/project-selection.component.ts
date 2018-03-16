@@ -28,7 +28,20 @@ import { OpenProjectRequest } from '../../server/server-requests-types';
                 </div>
             </div>
 
-            <div class="right-section mat-elevation-z8">
+            <div class="right-section">
+                <div class="actions">
+                    <a (click)="onOpenClicked()">
+                        <spl-icon iconClass="folder-open-o">
+                        </spl-icon>
+                        Open
+                    </a>
+                    <a (click)="onNewClicked()">
+                        <spl-icon iconClass="file-o">
+                        </spl-icon>
+                        New
+                    </a>
+                </div>
+
                 <mat-nav-list>
                     <mat-list-item
                         mat-list-item
@@ -39,14 +52,6 @@ import { OpenProjectRequest } from '../../server/server-requests-types';
                         <p matLine class="project-root"> {{recentProject.root}} </p>
                     </mat-list-item>
                 </mat-nav-list>
-
-                <div class="actions">
-                    <a (click)="onNewClicked()">
-                        <spl-icon iconClass="file-o">
-                        </spl-icon>
-                        New
-                    </a>
-                </div>
             </div>
         </div>
     `
@@ -63,6 +68,7 @@ export class ProjectSelectionComponent implements OnInit {
     }
 
     ngOnInit() {
+        this._serverComm.get('centerAndResetToInitial');
         this._serverComm.get<RecentProjectsResponse>('recentProjects').then((response) => {
             this.recentProjects = response.recentProjects.slice(0, 7);
         });
@@ -70,16 +76,16 @@ export class ProjectSelectionComponent implements OnInit {
 
     public async onNewClicked() {
         let response = await this._serverComm.get<NewProjectResponse>('newProject');
-        if (!response.newProjectHome) {
+        if (!response.newProject || !response.newProject.root) {
             return;
         }
 
-        this._project.open(response.newProjectHome);
+        this._project.open(response.newProject);
     }
 
     public async onOpenClicked(project: ProjectSelection) {
         let request: OpenProjectRequest = { projectToOpen: project };
         await this._serverComm.post<OpenProjectRequest>('openProject', request);
-        this._project.open(project.root);
+        this._project.open(project);
     }
 }
