@@ -5,6 +5,6 @@ export interface IRequestType {
     [key: string]: any;
 }
 
-export interface OpenProjectRequest extends IRequestType {
-    projectToOpen: ProjectSelection;
+export interface OpenRecentProjectRequest extends IRequestType {
+    recentProjectToOpen: ProjectSelection;
 }

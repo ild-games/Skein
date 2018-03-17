@@ -37,7 +37,7 @@ describe('ProjectExplorerComponent', () => {
 
     it('has a project key equal to the key of the project created with the project service', () => {
         let projectService = TestBed.get(ProjectService) as ProjectService;
-        projectService.open('NewProject').then(() => {
+        projectService.open({ root: '/home/test', name: 'NewProject' }).then(() => {
             expect(projectExplorerComponent.projectKey).toBe('NewProject');
         });
     });

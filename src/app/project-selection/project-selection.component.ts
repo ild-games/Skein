@@ -3,11 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 import 'rxjs/add/operator/map';
 
-import { NewProjectResponse, RecentProjectsResponse, ProjectSelection } from '../../server/server-response-types';
+import { NewProjectResponse, RecentProjectsResponse, ProjectSelection, OpenProjectResponse } from '../../server/server-response-types';
 import { ProjectService } from '../project/project.service';
 import { ServerCommunicationService } from '../server-communication/server-communication.service';
 import { VERSION } from '../util/version';
-import { OpenProjectRequest } from '../../server/server-requests-types';
+import { OpenRecentProjectRequest } from '../../server/server-requests-types';
 
 
 @Component({
@@ -46,7 +46,7 @@ import { OpenProjectRequest } from '../../server/server-requests-types';
                     <mat-list-item
                         mat-list-item
                         *ngFor="let recentProject of recentProjects"
-                        (click)="onOpenClicked(recentProject)">
+                        (click)="onRecentProjectClicked(recentProject)">
 
                         <p matLine class="project-name"> {{recentProject.name}} </p>
                         <p matLine class="project-root"> {{recentProject.root}} </p>
@@ -83,9 +83,18 @@ export class ProjectSelectionComponent implements OnInit {
         this._project.open(response.newProject);
     }
 
-    public async onOpenClicked(project: ProjectSelection) {
-        let request: OpenProjectRequest = { projectToOpen: project };
-        await this._serverComm.post<OpenProjectRequest>('openProject', request);
+    public async onOpenClicked() {
+        let response = await this._serverComm.get<OpenProjectResponse>('openProject');
+        if (!response.openedProject || !response.openedProject.root) {
+            return;
+        }
+
+        this._project.open(response.openedProject);
+    }
+
+    public async onRecentProjectClicked(project: ProjectSelection) {
+        let request: OpenRecentProjectRequest = { recentProjectToOpen: project };
+        await this._serverComm.post<OpenRecentProjectRequest>('openRecentProject', request);
         this._project.open(project);
     }
 }

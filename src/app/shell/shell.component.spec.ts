@@ -15,27 +15,33 @@ import { createUndoRedoReducer } from '../state/undo-redo';
 import { Store, createStore } from 'redux';
 import { testReducer, testAction } from '../state/store.service.spec';
 import { SkeinKeyEvent, callKeyDownHandlers } from '../util/keyboard-multiplexer';
+import { ControlsModule } from '../controls/controls.module';
+
+const SHELL_COMPONENT_TEST_BED: any = {
+    imports: [
+        ControlsModule
+    ],
+    declarations: [
+        ShellComponent,
+        SkeinComponent,
+        ProjectSelectionComponent,
+        ProjectExplorerComponent,
+        WorkspaceComponent
+    ],
+    providers: [
+        { provide: StoreService, useValue: new StoreService(mainReducer) },
+        ProjectService,
+        ServerCommunicationService,
+        HttpClient,
+        HttpHandler
+    ]
+};
 
 describe('ShellComponent', () => {
     let shellComponent: ShellComponent = null;
 
     beforeEach(async(() => {
-        TestBed.configureTestingModule({
-            declarations: [
-                ShellComponent,
-                SkeinComponent,
-                ProjectSelectionComponent,
-                ProjectExplorerComponent,
-                WorkspaceComponent
-            ],
-            providers: [
-                { provide: StoreService, useValue: new StoreService(mainReducer) },
-                ProjectService,
-                ServerCommunicationService,
-                HttpClient,
-                HttpHandler
-            ]
-        }).compileComponents();
+        TestBed.configureTestingModule(SHELL_COMPONENT_TEST_BED).compileComponents();
         shellComponent = TestBed.createComponent(ShellComponent).debugElement.componentInstance;
     }));
 
@@ -50,7 +56,7 @@ describe('ShellComponent', () => {
 
     it('should show skein when the projectService gets a value', async(() => {
         let projectService = TestBed.get(ProjectService) as ProjectService;
-        projectService.open('NewProject').then(() => {
+        projectService.open({ root: '/home/test', name: 'NewProject' }).then(() => {
             expect(shellComponent.showSkein).toBe(true);
             expect(shellComponent.showProjectSelection).toBe(false);
         });
@@ -60,22 +66,7 @@ describe('ShellComponent', () => {
         beforeEach(async(() => {
             TestBed.resetTestingModule();
             // create a new store service so that document's keyboard events will be triggered
-            TestBed.configureTestingModule({
-                declarations: [
-                    ShellComponent,
-                    SkeinComponent,
-                    ProjectSelectionComponent,
-                    ProjectExplorerComponent,
-                    WorkspaceComponent
-                ],
-                providers: [
-                    { provide: StoreService, useValue: new StoreService(testReducer) },
-                    ProjectService,
-                    ServerCommunicationService,
-                    HttpClient,
-                    HttpHandler
-                ]
-            }).compileComponents();
+            TestBed.configureTestingModule(SHELL_COMPONENT_TEST_BED).compileComponents();
             shellComponent = TestBed.createComponent(ShellComponent).debugElement.componentInstance;
         }));
 

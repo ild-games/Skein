@@ -8,6 +8,7 @@ import { Project } from '../project/project';
 import { StoreService } from '../state/store.service';
 import { mainReducer } from '../main.reducer';
 import { MockHttpRemotes, MockHttpClient } from '../server-communication/server-communication-test-helpers';
+import { ControlsModule } from '../controls/controls.module';
 
 describe('ProjectSelectionComponent', () => {
     let projectSelectionComponent: ProjectSelectionComponent = null;
@@ -23,6 +24,9 @@ describe('ProjectSelectionComponent', () => {
         };
         let mockHttpClient = new MockHttpClient(mockHttpRemotes);
         TestBed.configureTestingModule({
+            imports: [
+                ControlsModule
+            ],
             declarations: [
                 ProjectSelectionComponent,
             ],
@@ -46,14 +50,14 @@ describe('ProjectSelectionComponent', () => {
 
     it('should keep the project home as undefined when a new project is initiated but the process is canceled', async(() => {
         projectSelectionComponent.onNewClicked().then(() => {
-            expect(project.home).toBeUndefined();
+            expect(project.root).toBeUndefined();
         });
     }));
 
     it('should create a new project when the newProject button handler is called ', async(() => {
         mockHttpRemotes.newProject = (params?: string[]) => new Object({ newProjectHome: 'TestNewProject' });
         projectSelectionComponent.onNewClicked().then(() => {
-            expect(project.home).toBe('TestNewProject');
+            expect(project.root).toBe('TestNewProject');
         });
     }));
 });
