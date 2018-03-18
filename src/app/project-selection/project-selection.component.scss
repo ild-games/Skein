@@ -55,6 +55,7 @@
         background-color: $secondary-color;
 
         .skein-title-section {
+            @include unselectable;
             padding-left:2*$spacer-unit;
 
             .skein-name {
