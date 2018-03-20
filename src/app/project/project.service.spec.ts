@@ -36,6 +36,9 @@ describe('ProjectService', () => {
     });
 
     it('sets the project values to a new project when open is invoked and a valid result is returned from the server', () => {
-        service.open({ root: '/home/test', name: 'TestNewProject' }).then(() => { expect(project.root).toBe('TestNewProject'); });
+        service.open({ root: '/home/test', name: 'TestNewProject' }).then(() => {
+            expect(project.name).toBe('TestNewProject');
+            expect(project.root).toBe('/home/test');
+        });
     });
 });
