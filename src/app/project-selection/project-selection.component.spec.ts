@@ -95,7 +95,7 @@ describe('ProjectSelectionComponent', () => {
 
     it('should keep the project empty when open is clicked but the process is canceled', async(() => {
         projectSelectionComponent.onOpenClicked().then(() => {
-            expect(project).toEqual({})
+            expect(project).toEqual({});
         });
     }));
 

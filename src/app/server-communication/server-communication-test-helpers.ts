@@ -5,11 +5,11 @@ import { ServerCommunicationService } from './server-communication.service';
 export interface MockHttpRemotes {
     gets?: {
         [keys: string]: (params?: string[]) => { [keys: string]: any };
-    },
+    };
 
     posts?: {
         [keys: string]: (body: any | null) => { [keys: string]: any } | null;
-    }
+    };
 }
 export class MockHttpClient {
     constructor(public remotes: MockHttpRemotes) {
