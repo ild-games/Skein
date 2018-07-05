@@ -15,26 +15,42 @@ import { createUndoRedoReducer } from '../state/undo-redo';
 import { Store, createStore } from 'redux';
 import { testReducer, testAction } from '../state/store.service.spec';
 import { SkeinKeyEvent, callKeyDownHandlers } from '../util/keyboard-multiplexer';
+import { ControlsModule } from '../controls/controls.module';
+
+const SHELL_COMPONENT_TEST_BED: any = {
+    imports: [
+        ControlsModule
+    ],
+    declarations: [
+        ShellComponent,
+        SkeinComponent,
+        ProjectSelectionComponent,
+        ProjectExplorerComponent,
+        WorkspaceComponent
+    ],
+    providers: [
+        ProjectService,
+        ServerCommunicationService,
+        HttpClient,
+        HttpHandler
+    ]
+};
 
 describe('ShellComponent', () => {
     let shellComponent: ShellComponent = null;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
+            imports: [
+                ...SHELL_COMPONENT_TEST_BED.imports
+            ],
             declarations: [
-                ShellComponent,
-                SkeinComponent,
-                ProjectSelectionComponent,
-                ProjectExplorerComponent,
-                WorkspaceComponent
+                ...SHELL_COMPONENT_TEST_BED.declarations
             ],
             providers: [
                 { provide: StoreService, useValue: new StoreService(mainReducer) },
-                ProjectService,
-                ServerCommunicationService,
-                HttpClient,
-                HttpHandler
-            ]
+                ...SHELL_COMPONENT_TEST_BED.providers
+            ],
         }).compileComponents();
         shellComponent = TestBed.createComponent(ShellComponent).debugElement.componentInstance;
     }));
@@ -50,73 +66,70 @@ describe('ShellComponent', () => {
 
     it('should show skein when the projectService gets a value', async(() => {
         let projectService = TestBed.get(ProjectService) as ProjectService;
-        projectService.open('NewProject').then(() => {
+        projectService.open({ root: '/home/test', name: 'NewProject' }).then(() => {
             expect(shellComponent.showSkein).toBe(true);
             expect(shellComponent.showProjectSelection).toBe(false);
         });
     }));
+});
 
-    describe('undo/redo keyboard events', () => {
-        beforeEach(async(() => {
-            TestBed.resetTestingModule();
-            // create a new store service so that document's keyboard events will be triggered
-            TestBed.configureTestingModule({
-                declarations: [
-                    ShellComponent,
-                    SkeinComponent,
-                    ProjectSelectionComponent,
-                    ProjectExplorerComponent,
-                    WorkspaceComponent
-                ],
-                providers: [
-                    { provide: StoreService, useValue: new StoreService(testReducer) },
-                    ProjectService,
-                    ServerCommunicationService,
-                    HttpClient,
-                    HttpHandler
-                ]
-            }).compileComponents();
-            shellComponent = TestBed.createComponent(ShellComponent).debugElement.componentInstance;
-        }));
+describe('undo/redo keyboard events', () => {
+    let shellComponent: ShellComponent = null;
 
-        it('should capture the undo keyboard shortcut', async(() => {
-            let storeService = TestBed.get(StoreService) as StoreService;
-            let testState = { isNewState: true };
-            storeService.dispatch(testAction(testState));
-            expect(storeService.getState()).toBe(testState);
-            let undoEvent: SkeinKeyEvent = {
-                rawEvent: document.createEvent('KeyboardEvent') as KeyboardEvent,
-                key: 'z',
-                ctrlKey: true,
-                shiftKey: false,
-                metaKey: false
-            };
-            callKeyDownHandlers(undoEvent);
-            expect(storeService.getState()).not.toBe(testState);
-        }));
+    beforeEach(async(() => {
+        // create a new store service so that document's keyboard events will be triggered
+        TestBed.configureTestingModule({
+            imports: [
+                ...SHELL_COMPONENT_TEST_BED.imports
+            ],
+            declarations: [
+                ...SHELL_COMPONENT_TEST_BED.declarations
+            ],
+            providers: [
+                { provide: StoreService, useValue: new StoreService(testReducer) },
+                ...SHELL_COMPONENT_TEST_BED.providers
+            ],
+        }).compileComponents();
+        shellComponent = TestBed.createComponent(ShellComponent).debugElement.componentInstance;
+    }));
 
-        it('should capture the redo keyboard shortcut', async(() => {
-            let storeService = TestBed.get(StoreService) as StoreService;
-            storeService.dispatch(testAction({ isNewState: true }));
-            expect(storeService.getState().isNewState).toEqual(true);
-            let undoEvent: SkeinKeyEvent = {
-                rawEvent: document.createEvent('KeyboardEvent') as KeyboardEvent,
-                key: 'z',
-                ctrlKey: true,
-                shiftKey: false,
-                metaKey: false
-            };
-            callKeyDownHandlers(undoEvent);
-            expect(storeService.getState().isDefaultState).toEqual(true);
-            let redoEvent: SkeinKeyEvent = {
-                rawEvent: document.createEvent('KeyboardEvent') as KeyboardEvent,
-                key: 'z',
-                ctrlKey: true,
-                shiftKey: true,
-                metaKey: false
-            };
-            callKeyDownHandlers(redoEvent);
-            expect(storeService.getState().isNewState).toEqual(true);
-        }));
-    });
+    it('should capture the undo keyboard shortcut', async(() => {
+        let storeService = TestBed.get(StoreService) as StoreService;
+        let testState = { isNewState: true };
+        storeService.dispatch(testAction(testState));
+        expect(storeService.getState()).toBe(testState);
+        let undoEvent: SkeinKeyEvent = {
+            rawEvent: document.createEvent('KeyboardEvent') as KeyboardEvent,
+            key: 'z',
+            ctrlKey: true,
+            shiftKey: false,
+            metaKey: false
+        };
+        callKeyDownHandlers(undoEvent);
+        expect(storeService.getState()).not.toBe(testState);
+    }));
+
+    it('should capture the redo keyboard shortcut', async(() => {
+        let storeService = TestBed.get(StoreService) as StoreService;
+        storeService.dispatch(testAction({ isNewState: true }));
+        expect(storeService.getState().isNewState).toEqual(true);
+        let undoEvent: SkeinKeyEvent = {
+            rawEvent: document.createEvent('KeyboardEvent') as KeyboardEvent,
+            key: 'z',
+            ctrlKey: true,
+            shiftKey: false,
+            metaKey: false
+        };
+        callKeyDownHandlers(undoEvent);
+        expect(storeService.getState().isDefaultState).toEqual(true);
+        let redoEvent: SkeinKeyEvent = {
+            rawEvent: document.createEvent('KeyboardEvent') as KeyboardEvent,
+            key: 'z',
+            ctrlKey: true,
+            shiftKey: true,
+            metaKey: false
+        };
+        callKeyDownHandlers(redoEvent);
+        expect(storeService.getState().isNewState).toEqual(true);
+    }));
 });

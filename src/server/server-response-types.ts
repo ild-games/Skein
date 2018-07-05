@@ -1,11 +1,19 @@
 export interface IResponseType {
-    [key: string]: string;
+    [key: string]: any;
 }
 
 export interface NewProjectResponse extends IResponseType {
-    newProjectHome: string;
+    newProject: ProjectSelection;
 }
 
 export interface OpenProjectResponse extends IResponseType {
-    message: string;
+    openedProject: ProjectSelection;
+}
+
+export interface ProjectSelection {
+    name: string;
+    root: string;
+}
+export interface RecentProjectsResponse extends IResponseType {
+    recentProjects: ProjectSelection[];
 }

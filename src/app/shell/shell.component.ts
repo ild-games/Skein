@@ -47,7 +47,7 @@ export class ShellComponent implements OnDestroy {
     }
 
     private _onProjectChanged(newProject: Project) {
-        if (newProject && newProject.home && newProject.home !== '') {
+        if (newProject && newProject.root && newProject.root !== '') {
             this._showMode = ShowMode.Skein;
         } else {
             this._showMode = ShowMode.ProjectSelection;

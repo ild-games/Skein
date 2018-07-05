@@ -4,6 +4,7 @@ import { BrowserWindow, app } from 'electron';
 
 import { initSkeinBackendServer } from '../server/skein-server';
 import { ElectronSkeinServer } from './electron-server';
+import { centerAndResetToInitial, INITIAL_SIZE, BASE_WINDOW_TITLE } from './util/window';
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -12,15 +13,16 @@ let mainWindow: BrowserWindow;
 function createWindow() {
     // Create the browser window.
     mainWindow = new BrowserWindow({
-        width: 800,
-        title: 'Skein',
-        height: 600,
+        title: BASE_WINDOW_TITLE,
+        width: INITIAL_SIZE.x,
+        height: INITIAL_SIZE.y,
         icon: __dirname + '/../assets/images/icon.png',
         webPreferences: {
             nodeIntegration: false,
             preload: './preload.js'
         }
     });
+    centerAndResetToInitial(mainWindow);
 
     // start the server to communicate with skein
     const skeinServer = initSkeinBackendServer(new ElectronSkeinServer(mainWindow));

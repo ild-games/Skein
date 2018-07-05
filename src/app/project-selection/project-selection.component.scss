@@ -1,5 +1,73 @@
+@import '~sass/colors';
+@import '~sass/fonts';
+@import '~sass/forms';
+@import '~sass/mixins';
+@import '~@angular/material/theming';
+
 .container {
     width: 100%;
     height: 100%;
-    background-color: lightgreen;
+    display: flex;
+    background-color: $plain-color;
+    flex-direction: row;
+
+    .right-section {
+        @include mat-elevation(8);
+        max-width: 375px;
+        flex: 0 0 375px;
+        display: flex;
+        flex-direction: column;
+
+        mat-nav-list {
+            flex: 1 0 auto;
+
+            .project-name {
+                color: $primary-text-color;
+            }
+
+            .project-root {
+                color: $secondary-text-color;
+                font-size: $font-size-normal;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+        }
+
+        .actions {
+            padding: $spacer-unit $spacer-unit ($spacer-unit / 2) $spacer-unit;
+            flex: 0 0 $font-size-heading;
+            display: flex;
+            justify-content: center;
+        }
+
+        .actions > a {
+            @include clean-link;
+            font-size: $font-size-heading;
+            line-height: $font-size-heading;
+            font-weight: 300;
+            padding-right: $spacer-unit * 2;
+        }
+    }
+
+    .left-section {
+        flex: 1 0 auto;
+        background-color: $secondary-color;
+
+        .skein-title-section {
+            @include unselectable;
+            padding-left:2*$spacer-unit;
+
+            .skein-name {
+                font-size: $font-size-massive;
+                font-weight: 100;
+            }
+
+            .skein-version {
+                font-size: $font-size-heading;
+                font-weight: 300;
+                margin-left: 7px;
+            }
+        }
+    }
 }

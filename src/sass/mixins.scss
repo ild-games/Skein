@@ -1,7 +1,30 @@
+@import '~sass/colors';
+
 @mixin fill {
     top: 0;
     bottom: 0;
     right: 0;
     left: 0;
     position: absolute;
+}
+
+@mixin action {
+    &:hover {
+      cursor: pointer;
+      color: $action-color;
+    }
+}
+
+@mixin clean-link {
+    @include action;
+    text-decoration: none;
+    display: block;
+}
+
+@mixin unselectable {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: default;
 }

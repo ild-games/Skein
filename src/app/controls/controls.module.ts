@@ -1,12 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { SkeinMaterialModule } from './skein-material.module';
+import { IconComponent } from './icon.component';
 
 @NgModule({
+    declarations: [
+        IconComponent
+    ],
     imports: [
-        CommonModule
+        CommonModule,
+        SkeinMaterialModule
     ],
     exports: [
-        CommonModule
+        CommonModule,
+        SkeinMaterialModule,
+        IconComponent
     ],
 })
 export class ControlsModule {

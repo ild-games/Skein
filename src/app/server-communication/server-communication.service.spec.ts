@@ -11,14 +11,26 @@ describe('ServerCommunicationService', () => {
     let service: ServerCommunicationService;
 
     let mockHttpRemotes: MockHttpRemotes = {
-        landingPage: (params?: string[]) => {
-            return { body: 'Welcome <unknown user>!' };
+        gets: {
+            landingPage: (params?: string[]) => {
+                return { body: 'Welcome <unknown user>!' };
+            },
+            landingPage_user: (params?: string[]) => {
+                return { body: `Welcome ${params[0]}!` };
+            },
+            landingPage_user_from: (params?: string[]) => {
+                return { body: `Welcome ${params[0]} from ${params[1]}!` };
+            },
         },
-        landingPage_user: (params?: string[]) => {
-            return { body: `Welcome ${params[0]}!` };
-        },
-        landingPage_user_from: (params?: string[]) => {
-            return { body: `Welcome ${params[0]} from ${params[1]}!` };
+
+        posts: {
+            savePage: (body: any | null) => {
+                return { body: 'good save!' };
+            },
+
+            logError: (body: any | null) => {
+                return null;
+            }
         }
     };
     let mockHttpClient = new MockHttpClient(mockHttpRemotes);
@@ -34,27 +46,50 @@ describe('ServerCommunicationService', () => {
         service = TestBed.get(ServerCommunicationService);
     });
 
-    it('gets a null response for an invalid destination', () => {
-        service.get('notReal').then((result: any) => {
-            expect(result).toBe(null);
+    describe('get', () => {
+        it('gets a null response for an invalid destination', () => {
+            service.get('notReal').then((result: any) => {
+                expect(result).toBe(null);
+            });
+        });
+
+        it('gets a response with no parameters', () => {
+            service.get('landingPage').then((result: any) => {
+                expect(result.body).toBe('Welcome <unknown user>!');
+            });
+        });
+
+        it('gets a response while providing 1 parameter', () => {
+            service.get('landingPage', { user: 'John Smith' }).then((result: any) => {
+                expect(result.body).toBe('Welcome John Smith!');
+            });
+        });
+
+        it('gets a response while providing multiple parameters', () => {
+            service.get('landingPage', { user: 'John Smith', from: 'USA' }).then((result: any) => {
+                expect(result.body).toBe('Welcome John Smith from USA!');
+            });
         });
     });
 
-    it('gets a response with no parameters', () => {
-        service.get('landingPage').then((result: any) => {
-            expect(result.body).toBe('Welcome <unknown user>!');
+    describe('post', () => {
+        it('gets a null response for an invalid destination', () => {
+            service.post('notReal', null).then((result: any) => {
+                expect(result).toBe(null);
+            });
         });
-    });
 
-    it('gets a response while providing 1 parameter', () => {
-        service.get('landingPage', { user: 'John Smith' }).then((result: any) => {
-            expect(result.body).toBe('Welcome John Smith!');
+        it('test a post with a response', () => {
+            service.post('savePage', { saveThis: 'dataToSave' }).then((result: any) => {
+                expect(result.body).toBe('good save!');
+            });
         });
-    });
 
-    it('gets a response while providing multiple parameters', () => {
-        service.get('landingPage', { user: 'John Smith', from: 'USA' }).then((result: any) => {
-            expect(result.body).toBe('Welcome John Smith from USA!');
+
+        it('test a post without a response', () => {
+            service.post('logError', { error: 'bad error happened' }).then((result: any) => {
+                expect(result).toBe(null);
+            });
         });
     });
 });
